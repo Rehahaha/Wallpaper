@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>Wallpaper</AssemblyName>
+    <RootNamespace>Wallpaper.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\assets\wallpaper.ico</ApplicationIcon>
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\assets\wallpaper.ico" Link="assets\wallpaper.ico"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 把 mpv 运行时复制到输出/发布目录的 lib/mpv -->
+    <Content Include="..\..\lib\mpv\**\*" Link="lib\mpv\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wallpaper.Core\Wallpaper.Core.csproj" />
+    <ProjectReference Include="..\Wallpaper.DesktopHost\Wallpaper.DesktopHost.csproj" />
+    <ProjectReference Include="..\Wallpaper.Player\Wallpaper.Player.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Wallpaper.App/Wallpaper.App.csproj" />
+    <Project Path="src/Wallpaper.Core/Wallpaper.Core.csproj" />
+    <Project Path="src/Wallpaper.DesktopHost/Wallpaper.DesktopHost.csproj" />
+    <Project Path="src/Wallpaper.Player/Wallpaper.Player.csproj" />
+  </Folder>
+</Solution>

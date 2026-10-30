@@ -1,0 +1,164 @@
+<Window x:Class="Wallpaper.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Wallpaper" Height="680" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#FF16161A"
+        AllowDrop="True" Drop="OnDrop" DragOver="OnDragOver">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="Background" Value="#FF2A2A31" />
+            <Setter Property="Foreground" Value="#FFEDEDF2" />
+            <Setter Property="BorderBrush" Value="#FF3A3A44" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFEDEDF2" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF24242B" />
+            <Setter Property="Foreground" Value="#FFEDEDF2" />
+            <Setter Property="BorderBrush" Value="#FF3A3A44" />
+            <Setter Property="Padding" Value="8,6" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="Wallpaper" FontSize="24" FontWeight="SemiBold" />
+            <TextBlock Text="把本地视频设为桌面动态壁纸 · 支持 mp4 / webm / mkv"
+                       Foreground="#FF8A8A96" FontSize="12" Margin="0,4,0,0" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" x:Name="SearchBox" TextChanged="OnSearchChanged"
+                     ToolTip="按文件名筛选" />
+            <ComboBox Grid.Column="2" x:Name="SortBox" SelectionChanged="OnSortChanged">
+                <ComboBoxItem Content="按添加时间" Tag="Added" />
+                <ComboBoxItem Content="按名称" Tag="Name" />
+                <ComboBoxItem Content="按时长" Tag="Duration" />
+            </ComboBox>
+            <Button Grid.Column="4" Content="清理丢失文件" Click="OnCleanupMissing" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#FF1E1E24" CornerRadius="8" Padding="8">
+                <ListBox x:Name="LibraryList" Background="Transparent" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="OnSelectionChanged"
+                         MouseDoubleClick="OnItemDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Width="160" Height="90" Background="#FF26262E" CornerRadius="4">
+                                    <Grid>
+                                        <Image Source="{Binding Thumb}" Stretch="UniformToFill" />
+                                        <TextBlock Text="⚠ 文件已丢失" Foreground="#FFFF8A8A" FontSize="11"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Visibility="{Binding FileMissing, Converter={StaticResource BoolToVis}}" />
+                                    </Grid>
+                                </Border>
+
+                                <StackPanel Grid.Column="1" Margin="12,0,8,0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name}" FontSize="14" TextTrimming="CharacterEllipsis" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                        <TextBlock Text="{Binding DurationText}" Foreground="#FF7A7A88" FontSize="11" />
+                                        <TextBlock Text="  ·  " Foreground="#FF4A4A56" FontSize="11" />
+                                        <TextBlock Text="{Binding AddedAt, StringFormat=添加于 {0:MM-dd HH:mm}}"
+                                                   Foreground="#FF7A7A88" FontSize="11" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <Border Grid.Column="2" Background="#FF2E7D32" CornerRadius="4" Padding="8,3"
+                                        VerticalAlignment="Center"
+                                        Visibility="{Binding IsActive, Converter={StaticResource BoolToVis}}">
+                                    <TextBlock Text="使用中" FontSize="11" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <Border Grid.Column="2" Background="#FF1E1E24" CornerRadius="8" Padding="16">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="画面适配" Foreground="#FF9A9AA8" FontSize="12" />
+                        <ComboBox x:Name="FitBox" Margin="0,8,0,0" SelectionChanged="OnFitChanged">
+                            <ComboBoxItem Content="填充（裁切铺满）" Tag="Cover" />
+                            <ComboBoxItem Content="适应（保留黑边）" Tag="Contain" />
+                            <ComboBoxItem Content="拉伸（会变形）" Tag="Stretch" />
+                        </ComboBox>
+
+                        <TextBlock Text="音量" Foreground="#FF9A9AA8" FontSize="12" Margin="0,16,0,0" />
+                        <Slider x:Name="VolumeSlider" Minimum="0" Maximum="100" Margin="0,4,0,0"
+                                ValueChanged="OnVolumeChanged" />
+                        <CheckBox x:Name="ChkMute" Content="静音" Margin="0,4,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnMuteToggle" Unchecked="OnMuteToggle" />
+
+                        <Button Content="添加视频…" Margin="0,16,0,0" Click="OnAddFiles" />
+                        <Button Content="设为壁纸" Margin="0,8,0,0" Click="OnSetWallpaper" />
+                        <Button Content="暂停 / 继续" Margin="0,8,0,0" Click="OnTogglePause" />
+                        <Button Content="下一个壁纸" Margin="0,8,0,0" Click="OnNextWallpaper" />
+                        <Button Content="停止壁纸" Margin="0,8,0,0" Click="OnStopWallpaper" />
+                        <Button Content="移出素材库" Margin="0,8,0,0" Click="OnRemove" />
+
+                        <CheckBox x:Name="ChkFullscreen" Content="全屏应用时自动暂停" Margin="0,18,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnFullscreenToggle" Unchecked="OnFullscreenToggle" />
+                        <CheckBox x:Name="ChkAutoStart" Content="开机自动启动（最小化到托盘）" Margin="0,8,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnAutoStartToggle" Unchecked="OnAutoStartToggle" />
+                        <CheckBox x:Name="ChkPower" Content="省电模式（4K 更明显）" Margin="0,8,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnPowerToggle" Unchecked="OnPowerToggle" />
+                        <CheckBox x:Name="ChkAllMonitors" Content="所有显示器都播放" Margin="0,8,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnAllMonitorsToggle" Unchecked="OnAllMonitorsToggle" />
+
+                        <CheckBox x:Name="ChkRotate" Content="自动轮播素材" Margin="0,8,0,0"
+                                  Foreground="#FFB9B9C6" Checked="OnRotateToggle" Unchecked="OnRotateToggle" />
+                        <ComboBox x:Name="RotateInterval" Margin="0,6,0,0" SelectionChanged="OnRotateIntervalChanged">
+                            <ComboBoxItem Content="每 5 分钟" Tag="300" />
+                            <ComboBoxItem Content="每 15 分钟" Tag="900" />
+                            <ComboBoxItem Content="每 30 分钟" Tag="1800" />
+                            <ComboBoxItem Content="每 1 小时" Tag="3600" />
+                        </ComboBox>
+
+                        <TextBlock Foreground="#FF6E6E7C" FontSize="11" TextWrapping="Wrap" Margin="0,16,0,0"
+                                   Text="小提示：可以拖视频进窗口；双击列表项直接设为壁纸。热键 Ctrl+Alt+W 显隐界面、Ctrl+Alt+空格 暂停、Ctrl+Alt+N 下一个。" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <TextBlock Grid.Row="3" x:Name="StatusText" Margin="0,12,0,0" Foreground="#FF8A8A96"
+                   FontSize="12" TextWrapping="Wrap" Text="就绪。" />
+    </Grid>
+</Window>

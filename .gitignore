@@ -1,0 +1,21 @@
+# 构建产物
+bin/
+obj/
+dist/
+
+# 本地媒体素材（体积大，不入库）
+media/
+
+# mpv 运行时（GPL 二进制，不随仓库分发）
+lib/mpv/*
+!lib/mpv/.gitkeep
+
+# 工具与编辑器
+.vs/
+.vscode/
+*.user
+*.suo
+*.log
+
+# 打包中间产物
+*.zip

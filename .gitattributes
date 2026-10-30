@@ -1,0 +1,14 @@
+# 统一换行，避免跨平台 diff 噪音
+* text=auto
+
+*.cs      text diff=csharp
+*.xaml    text
+*.csproj  text
+*.slnx    text
+*.md      text
+*.ps1     text
+*.yml     text
+
+*.png     binary
+*.ico     binary
+*.mp4     binary
