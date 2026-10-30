@@ -26,6 +26,12 @@ C# + WPF + mpv. No network, no accounts, no background services.
 | Tray / hotkeys | Close-to-tray; Ctrl+Alt+W / Space / N |
 | Resilience | Player crashes are auto-restarted (1s/2s/3s backoff, max 3) |
 
+## Screenshots
+
+| Library | On the desktop |
+|---|---|
+| ![](docs/screenshot-ui.png) | ![](docs/screenshot-desktop.jpg) |
+
 ## Requirements
 
 - Windows 10 1903+ / Windows 11 (x64)

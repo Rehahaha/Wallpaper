@@ -25,6 +25,12 @@
 | 托盘 / 热键 | 关闭窗口进托盘；Ctrl+Alt+W / 空格 / N |
 | 容错 | 播放器崩溃自动重启（1s/2s/3s 退避，最多 3 次） |
 
+## 截图
+
+| 素材库 | 桌面效果 |
+|---|---|
+| ![](docs/screenshot-ui.png) | ![](docs/screenshot-desktop.jpg) |
+
 ## 环境要求
 
 - Windows 10 1903+ / Windows 11（x64）
