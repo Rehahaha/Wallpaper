@@ -73,7 +73,7 @@ Progman 子窗口 z 序（上 → 下）：
 **M0 结论：挂载链路正确 + 渲染必须交给 mpv（D3D 交换链）。**
 
 - GDI 画不出来的原因：`Progman` exstyle = `0x200080`，含 `WS_EX_NOREDIRECTIONBITMAP`，没有 DWM 重定向表面，纯 GDI 子窗口不参与合成。
-- 证据图：`docs/verify-workerw.png`（无棋盘格）、`docs/verify-mpv.png`（SMPTE 彩条）、`docs/verify-surface-mpv.png`（经我们宿主窗口渲染）。
+- 验证方式：全屏截图 + 逐点取色比对（品红/青棋盘格 vs SMPTE 彩条）。截图未纳入仓库，可重新运行 `tools/verify.ps1` 复现。
 
 ## 5. 复现命令
 

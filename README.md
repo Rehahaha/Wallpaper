@@ -1,5 +1,7 @@
 # Wallpaper
 
+[🇨🇳 中文](README.md) | [English](README.en.md)
+
 把本地视频设为 Windows 桌面动态壁纸的轻量工具。C# + WPF + mpv，无网络、无账号、无后台服务。
 
 [![build](https://github.com/Rehahaha/Wallpaper/actions/workflows/build.yml/badge.svg)](https://github.com/Rehahaha/Wallpaper/actions/workflows/build.yml)
@@ -7,8 +9,6 @@
 [![platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-lightgrey.svg)](#环境要求)
 
 > 一个「下载了视频，想放到桌面上播」的最小可用实现。MIT 许可。
-
-![界面截图](docs/ui-library.png)
 
 ## 特性
 
@@ -24,12 +24,6 @@
 | 多显示器 | 每块屏一个宿主窗口 + 独立播放器 |
 | 托盘 / 热键 | 关闭窗口进托盘；Ctrl+Alt+W / 空格 / N |
 | 容错 | 播放器崩溃自动重启（1s/2s/3s 退避，最多 3 次） |
-
-## 截图
-
-| 素材库 | 桌面效果 |
-|---|---|
-| ![](docs/ui-library.png) | ![](docs/m1-play.png) |
 
 ## 环境要求
 
