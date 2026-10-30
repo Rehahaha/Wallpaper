@@ -2,6 +2,10 @@
 
 把本地视频设为 Windows 桌面动态壁纸的轻量工具。C# + WPF + mpv，无网络、无账号、无后台服务。
 
+[![build](https://github.com/Rehahaha/Wallpaper/actions/workflows/build.yml/badge.svg)](https://github.com/Rehahaha/Wallpaper/actions/workflows/build.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-lightgrey.svg)](#环境要求)
+
 > 一个「下载了视频，想放到桌面上播」的最小可用实现。MIT 许可。
 
 ![界面截图](docs/ui-library.png)
