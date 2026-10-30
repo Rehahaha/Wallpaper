@@ -129,4 +129,4 @@ tools/                    打包、验证、获取 mpv 等脚本
 本项目源码采用 **MIT**。
 
 运行依赖 [mpv](https://mpv.io/)（GPLv2+），**不包含在本仓库中**。
-如果你分发包含 `mpv.exe` 的打包产物，需要同时满足 GPLv2 的要求（随附 mpv 源码或获取途径）。
+如果你分发包含 `mpv.exe` 的打包产物，需要同时满足 GPLv2 的要求 —— 详见 [THIRD-PARTY.md](THIRD-PARTY.md)。
